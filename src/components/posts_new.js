@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 class PostsNew extends Component {
-  renderTitleField(filed) { //filed인자를 받아서 input 테스의 정보를 가져간다
+  renderField(field) { //filed 밖에 Field tag의 component를 넣어 준다
       return (
         <div className="form-group">
-          <label>Title</label>
+          <label>{field.label}</label>
           <input
             className = "form-control"
             type="text"
-            {...filed.input}
+            {...field.input}
           />
         </div>
       );
@@ -19,8 +19,19 @@ class PostsNew extends Component {
     return (
       <form>
         <Field
+          label="Title For Post"
           name="title"
-          component={ this.renderTitleField }
+          component={ this.renderField }
+        />
+        <Field
+          label="Tags"
+          name="tags"
+          component={ this.renderField }
+        />
+        <Field
+          label="Post Content"
+          name="content"
+          component={ this.renderField }
         />
       </form>
     );
