@@ -25,7 +25,9 @@ class PostsNew extends Component {
   }// input의 모든 event를 ...filed.input으로 가지도록 한다
 
   onSubmit(values) {
-    this.props.createPost(values);
+    this.props.createPost(values, () => {
+      this.props.history.push("/")
+    }); //call back function
   }
 
   render() {
