@@ -11,7 +11,7 @@ class PostsNew extends Component {
             type="text"
             {...field.input}
           />
-          { field.meta.error }
+          { field.meta.touched ? field.meta.error : '' }
         </div>
       );
   }// input의 모든 event를 ...filed.input으로 가지도록 한다
