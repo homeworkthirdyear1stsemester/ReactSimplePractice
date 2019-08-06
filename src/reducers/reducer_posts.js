@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { FETCH_POSTS, FETCH_POST } from '../actions';
 
-export default function(state = {}, action) {
+export default function(state = {}, action) {//한번 실행 한 후 state에 저장함
   switch (action.type){
     case FETCH_POST:
       // const post = action.payload.data;

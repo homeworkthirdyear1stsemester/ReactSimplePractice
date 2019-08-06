@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { fetchPost } from '../actions';
 
 class PostsShow extends Component {
   componentDidMount(){
-    const { id } = this.props.match.params;// react router의 param값을 가져오는 것
-    this.props.fetchPost(id);
+    if (!this.props.post){
+      const { id } = this.props.match.params;// react router의 param값을 가져오는 것
+      this.props.fetchPost(id);
+    }
   }
 
   render() {
@@ -18,6 +21,7 @@ class PostsShow extends Component {
 
     return (
       <div>
+        <Link to="/" className="btn">Back To Index</Link>
         <h3>{post.title}</h3>
         <h6>Categories: {post.categories}</h6>
         <p>{post.content}</p>
@@ -27,6 +31,7 @@ class PostsShow extends Component {
 }
 
 function mapStateToProps({ posts }, ownProps) { //posts = state.posts
+  console.log(posts);
   //props obj heading to all compoenent -> 컴포넌트보다 우선적으로 먼저 가지는 props들이다
   return { post: posts[ownProps.match.params.id] };
 }
