@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { createPost } from '../actions';
 
 class PostsNew extends Component {
   renderField(field) { //filed 밖에 Field tag의 component를 넣어 준다
@@ -23,7 +25,7 @@ class PostsNew extends Component {
   }// input의 모든 event를 ...filed.input으로 가지도록 한다
 
   onSubmit(values) {
-    console.log(values);
+    this.props.createPost(values);
   }
 
   render() {
@@ -75,6 +77,8 @@ function validate(values) {
 export default reduxForm({
   validate,
   form: 'PostsNewForm'
-})(PostsNew);
+})(
+  connect(null, { createPost })(PostsNew)
+);
 //redux form 으로 지정 한다
 //form의 이름을 지정 -> PostsNewForm은 하나의 key로 지정
