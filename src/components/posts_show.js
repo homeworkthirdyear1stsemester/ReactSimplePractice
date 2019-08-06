@@ -44,6 +44,7 @@ class PostsShow extends Component {
   }
 }
 
+//2번째 argument는 무조건 지금 현재 PostsShow와 같은 것들의 컴포넌트로 인식한다
 function mapStateToProps({ posts }, ownProps) { //posts = state.posts
   //props obj heading to all compoenent -> 컴포넌트보다 우선적으로 먼저 가지는 props들이다
   return { post: posts[ownProps.match.params.id] };
