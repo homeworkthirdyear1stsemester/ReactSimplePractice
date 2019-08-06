@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchPost } from '../actions';
+import { fetchPost, deletePost } from '../actions';
 
 class PostsShow extends Component {
   componentDidMount(){
-    if (!this.props.post){
+    if (!this.props.post){//가져와서 사용하지 않음
       const { id } = this.props.match.params;// react router의 param값을 가져오는 것
       this.props.fetchPost(id);
     }
+  }
+
+  onDeleteClick() {
+    const { id } = this.props.match.params;
+
+    this.props.deletePost(id, () => {
+      this.props.history.push('/');
+    });
   }
 
   render() {
@@ -21,7 +29,13 @@ class PostsShow extends Component {
 
     return (
       <div>
-        <Link to="/" className="btn">Back To Index</Link>
+        <Link to="/">Back To Index</Link>
+        <button
+          className="btn btn-danger pull-xs-right"
+          onClick={ this.onDeleteClick.bind(this) }
+        >
+          Delete Posts
+        </button>
         <h3>{post.title}</h3>
         <h6>Categories: {post.categories}</h6>
         <p>{post.content}</p>
@@ -31,9 +45,8 @@ class PostsShow extends Component {
 }
 
 function mapStateToProps({ posts }, ownProps) { //posts = state.posts
-  console.log(posts);
   //props obj heading to all compoenent -> 컴포넌트보다 우선적으로 먼저 가지는 props들이다
   return { post: posts[ownProps.match.params.id] };
-}
+}//이미 존재하는것에서 값을 가지고 사용 많약 없을 경우 fetchpost에서 가져온 값을 사용
 
-export default connect(mapStateToProps, { fetchPost })(PostsShow);
+export default connect(mapStateToProps, { fetchPost, deletePost })(PostsShow);
